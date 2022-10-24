@@ -1,5 +1,8 @@
 #!/bin/bash
 
-PROFILE=$1
-aws-vault exec "$PROFILE" -- sh -c "aws configure set aws_session_token $(printenv AWS_SESSION_TOKEN) --profile $PROFILE"
+#set -x # echo on
 
+PROFILE=$1
+AWS_SESSION_TOKEN=$(aws-vault exec $PROFILE -- printenv AWS_SESSION_TOKEN) 
+
+aws configure set aws_session_token $AWS_SESSION_TOKEN --profile $PROFILE
